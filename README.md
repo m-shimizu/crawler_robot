@@ -2,6 +2,9 @@
 A crawler robot model equipped flipper arms and its plugin and controller program for gazebo.
 
 ## How to build the robot's plugin and controller program with message for controlling flippers.
+    $ cd ~
+    $ git clone https://github.com/m-shimizu/crawler_robot
+    $ cd ~/crawler_robot
     $ mkdir build  
     $ cmake ../  
     $ make  
@@ -9,11 +12,13 @@ A crawler robot model equipped flipper arms and its plugin and controller progra
 ## How to use the robot.
 You need two terminals.
 
-At Terminal 1 :  
+### At Terminal 1 :  
+    $ cd ~/crawler_robot
     $ source setup.bash  
     $ gazebo  
 
-At Terminal 2 :  
+### At Terminal 2 :  
+    $ cd ~/crawler_robot
     $ cd build  
     $ ./robot_teleop crawler_robot 1  
 
