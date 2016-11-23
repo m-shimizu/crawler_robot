@@ -16,6 +16,7 @@ You need two terminals.
     $ cd ~/crawler_robot
     $ source setup.bash  
     $ gazebo  
+    (And select the "Insert" tab, then spawn a "crawler_robot")
 
 ### At Terminal 2 :  
     $ cd ~/crawler_robot
