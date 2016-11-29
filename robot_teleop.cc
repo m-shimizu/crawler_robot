@@ -209,11 +209,14 @@ void  check_key_command(gazebo::transport::PublisherPtr velpub,
                         int RobotType , float& speed, float& turn,
                         int& flp_ch, double flp[])
 {
+  static int Combi_Flag = 0;
   if(doslike_kbhit())
   {
     int cmd = doslike_getch();
     switch(cmd)
     {
+      case 'U': Combi_Flag  = 1; break;
+      case 'u': Combi_Flag  = 0; break;
       case 's': turn  = 0;
       case 'S': speed = 0; break;
       case 'W': turn   = 0;
@@ -229,11 +232,81 @@ void  check_key_command(gazebo::transport::PublisherPtr velpub,
       case 'c': flp_ch = 2; break; // RR
       case 'z': flp_ch = 3; break; // RL
       case 'F': flp[0] = flp[1] = flp[2] = flp[3] = M_PI / 4; break;
-      case 'f': flp[flp_ch] = M_PI / 4; break;
-      case 'r': flp[flp_ch] += (M_PI / 180 * 5); break;
-      case 'R': flp[flp_ch] += (M_PI / 180 * 10); break;
-      case 'v': flp[flp_ch] -= (M_PI / 180 * 5); break;
-      case 'V': flp[flp_ch] -= (M_PI / 180 * 10); break;
+      case 'f': if(Combi_Flag==1)
+                {
+                  if(flp_ch==0 || flp_ch==1)
+                  {
+                    flp[0] = M_PI / 4;
+                    flp[1] = M_PI / 4;
+                  }
+                  else
+                  {
+                    flp[2] = M_PI / 4;
+                    flp[3] = M_PI / 4;
+                  }
+                }
+                else
+                  flp[flp_ch] = M_PI / 4; break;
+      case 'r': if(Combi_Flag==1)
+                {
+                  if(flp_ch==0 || flp_ch==1)
+                  {
+                    flp[0] += (M_PI / 180 * 5);
+                    flp[1] += (M_PI / 180 * 5);
+                  }
+                  else
+                  {
+                    flp[2] += (M_PI / 180 * 5);
+                    flp[3] += (M_PI / 180 * 5);
+                  }
+                }
+                else
+                  flp[flp_ch] += (M_PI / 180 * 5); break;
+      case 'R': if(Combi_Flag==1)
+                {
+                  if(flp_ch==0 || flp_ch==1)
+                  {
+                    flp[0] += (M_PI / 180 * 10);
+                    flp[1] += (M_PI / 180 * 10);
+                  }
+                  else
+                  {
+                    flp[2] += (M_PI / 180 * 10);
+                    flp[3] += (M_PI / 180 * 10);
+                  }
+                }
+                else
+                  flp[flp_ch] += (M_PI / 180 * 10); break;
+      case 'v': if(Combi_Flag==1)
+                {
+                  if(flp_ch==0 || flp_ch==1)
+                  {
+                    flp[0] -= (M_PI / 180 * 5);
+                    flp[1] -= (M_PI / 180 * 5);
+                  }
+                  else
+                  {
+                    flp[2] -= (M_PI / 180 * 5);
+                    flp[3] -= (M_PI / 180 * 5);
+                  }
+                }
+                else
+                  flp[flp_ch] -= (M_PI / 180 * 5); break;
+      case 'V': if(Combi_Flag==1)
+                {
+                  if(flp_ch==0 || flp_ch==1)
+                  {
+                    flp[0] -= (M_PI / 180 * 10);
+                    flp[1] -= (M_PI / 180 * 10);
+                  }
+                  else
+                  {
+                    flp[2] -= (M_PI / 180 * 10);
+                    flp[3] -= (M_PI / 180 * 10);
+                  }
+                }
+                else
+                  flp[flp_ch] -= (M_PI / 180 * 10); break;
     }
     publish_vel_cmd(velpub, speed, turn, RobotType);
     publish_flp_cmd(flppub, flp[0], flp[1], flp[2], flp[3]);
