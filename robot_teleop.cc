@@ -50,7 +50,7 @@ void  publish_vel_cmd(gazebo::transport::PublisherPtr pub,
 {
   switch(RobotType)
   {
-    case 1: //turn = turn;
+    case 1: turn = -turn;
       // Pioneer 2DX(Skidsteer); Turn > 0 then robot turn clock wise
       break;
     case 2: turn = -turn;
